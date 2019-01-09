@@ -149,7 +149,9 @@ class LoadBalancer(dict):
         return self.__key()
 
     def get_vpc_id(self):
-        return self['VpcId'] if 'VpcId' in self else self['VPCId']
+        if 'VpcId' in self: return self['VpcId']
+        if 'VPCId' in self: return self['VPCId']
+        return None
 
     def get_subnets(self):
         return self['Subnets'] if 'Subnets' in self else list(map(lambda a: a['SubnetId'], self['AvailabilityZones']))
